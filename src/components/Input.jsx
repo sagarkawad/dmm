@@ -27,28 +27,43 @@ const Input = forwardRef(function Input(
 
   return (
     <section className="credentials-section flex flex-col">
-      <label htmlFor="name">User details</label>
+      <label htmlFor="name" className="text-xl font-bold text-slate-600">
+        Customer
+      </label>
       <input
         type="text"
-        className="name mb-3 p-3"
+        className="name p-3 bg-indigo-100 mb-6"
         onChange={onChangeHandler}
         ref={ref}
       />
       {exist ? (
         <input
           type="text"
-          className="name mb-3 p-3"
+          className="name mb-3 p-3 bg-indigo-100"
           placeholder="Enter new name"
           ref={newName}
         />
       ) : undefined}
-      <label htmlFor="joinDate">Join Date</label>
-      <input type="date" className="joinDate mb-3 p-3" ref={joinDate} />
-      <label htmlFor="endDate">End Date</label>
-      <input type="date" className="endDate mb-3 p-3" ref={endDate} />
+      <label htmlFor="joinDate" className="text-xl font-bold text-slate-600">
+        Joining
+      </label>
+      <input
+        type="date"
+        className="joinDate mb-6 p-3 bg-indigo-100"
+        ref={joinDate}
+      />
+      <label htmlFor="endDate" className="text-xl font-bold text-slate-600">
+        Completion
+      </label>
+      <input
+        type="date"
+        className="endDate mb-6 p-3 bg-indigo-100"
+        ref={endDate}
+      />
       <div>
         {!exist ? (
           <button
+            className="w-32 h-12 text-white"
             onClick={() => {
               setDataHandler(
                 ref.current.value,
@@ -67,6 +82,7 @@ const Input = forwardRef(function Input(
         ) : (
           <div className="flex justify-between">
             <button
+              className="w-32 h-12 text-white"
               onClick={() =>
                 updateDataByName(ref.current.value, {
                   sName: newName.current.value,
@@ -85,7 +101,10 @@ const Input = forwardRef(function Input(
             >
               Edit
             </button>
-            <button onClick={() => onDeleteHandler(ref.current.value)}>
+            <button
+              className="w-32 h-12 text-white"
+              onClick={() => onDeleteHandler(ref.current.value)}
+            >
               Delete
             </button>
           </div>

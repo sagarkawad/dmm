@@ -9,7 +9,6 @@ const Result = function ({ data, name }) {
   const dateString = formattedDate; // Your date string
   return (
     <section className="mt-4">
-      <h2>Result</h2>
       {data.map((el) => {
         if (el.name == name) {
           return (

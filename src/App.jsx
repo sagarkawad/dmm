@@ -27,7 +27,7 @@ const App = () => {
 
     try {
       const response = await fetch(
-        `https://digital-mess-manager-default-rtdb.firebaseio.com/${stateUser.user.uid}.json`
+        `https://digital-mess-manager-default-rtdb.firebaseio.com/${stateUser.uid}.json`
       );
       const dbData = await response.json();
       console.log(dbData);
@@ -69,14 +69,15 @@ const App = () => {
   async function handleSignInWithGoogle() {
     const result = await signInWithGoogle();
     console.log(result);
-    setUser(result);
+    setUser(result.user);
   }
 
   console.log(data);
+  console.log("stateUser", stateUser);
 
   const setDataHandler = async function (sName, joinD, endD, daysC, daysR) {
     const res = await fetch(
-      `https://digital-mess-manager-default-rtdb.firebaseio.com/${stateUser.user.uid}.json`,
+      `https://digital-mess-manager-default-rtdb.firebaseio.com/${stateUser.uid}.json`,
       {
         method: "POST",
         headers: {
@@ -135,7 +136,7 @@ const App = () => {
     try {
       // Fetch all data from the database
       const response = await fetch(
-        `https://digital-mess-manager-default-rtdb.firebaseio.com/${stateUser.user.uid}.json`
+        `https://digital-mess-manager-default-rtdb.firebaseio.com/${stateUser.uid}.json`
       );
       const allData = await response.json();
 
@@ -150,7 +151,7 @@ const App = () => {
       // If ID is found, perform the delete operation
       if (idToDelete) {
         const deleteResponse = await fetch(
-          `https://digital-mess-manager-default-rtdb.firebaseio.com/${stateUser.user.uid}/${idToDelete}.json`,
+          `https://digital-mess-manager-default-rtdb.firebaseio.com/${stateUser.uid}/${idToDelete}.json`,
           {
             method: "DELETE",
           }
@@ -171,7 +172,7 @@ const App = () => {
     try {
       // Fetch all data from the database
       const response = await fetch(
-        `https://digital-mess-manager-default-rtdb.firebaseio.com/${stateUser.user.uid}.json`
+        `https://digital-mess-manager-default-rtdb.firebaseio.com/${stateUser.uid}.json`
       );
       const allData = await response.json();
 
@@ -186,7 +187,7 @@ const App = () => {
       // If ID is found, perform the update operation
       if (idToUpdate) {
         const updateResponse = await fetch(
-          `https://digital-mess-manager-default-rtdb.firebaseio.com/${stateUser.user.uid}/${idToUpdate}.json`,
+          `https://digital-mess-manager-default-rtdb.firebaseio.com/${stateUser.uid}/${idToUpdate}.json`,
           {
             method: "PATCH", // or PUT
             headers: {
@@ -214,28 +215,31 @@ const App = () => {
   return (
     <div>
       {stateUser ? (
-        <div>
-          <p>Signed in as: {stateUser.user.email}</p>
-          <button>Sign Out</button>
-          {
-            /* Render user-specific content here */
-            <>
-              <Input
-                exist={exist}
-                setDataHandler={setDataHandler}
-                onChangeHandler={onChangeHandler}
-                onDeleteHandler={onDeleteHandler}
-                updateDataByName={onUpdateHandler}
-                ref={name}
-              />
-              <Result
-                data={data}
-                name={input}
-                onDeleteHandler={onDeleteHandler}
-              />
-            </>
-          }
-        </div>
+        <>
+          <nav className="flex justify-between mb-6">
+            <h1 className="text-slate-600">DMM</h1>
+            <img
+              src={stateUser.photoURL}
+              alt={stateUser.displayName}
+              className="rounded-full h-16"
+            />
+          </nav>
+          <div>
+            <Input
+              exist={exist}
+              setDataHandler={setDataHandler}
+              onChangeHandler={onChangeHandler}
+              onDeleteHandler={onDeleteHandler}
+              updateDataByName={onUpdateHandler}
+              ref={name}
+            />
+            <Result
+              data={data}
+              name={input}
+              onDeleteHandler={onDeleteHandler}
+            />
+          </div>
+        </>
       ) : (
         <div className="flex flex-col">
           <h1 className="font-bold text-slate-600 mb-4">Welcome</h1>
@@ -244,10 +248,7 @@ const App = () => {
             Sign in to Continue!
           </h2>
           <img src={signin} alt="" className="mt-10 h-80  mb-10" />
-          <button
-            onClick={handleSignInWithGoogle}
-            className="text-white h-16 font-bold text-l mb-6"
-          >
+          <button className="text-white h-16 font-bold text-l mb-6">
             Sign Up
           </button>
           <button
