@@ -36,6 +36,25 @@ const App = () => {
     setUserData();
   }, []);
 
+  function deleteUserData() {
+    sessionStorage.clear();
+    setUser(null);
+  }
+
+  const handleConfirm = () => {
+    const result = window.confirm(
+      "Do you want to sign out and switch account?"
+    );
+    if (result) {
+      console.log("User clicked Yes");
+      // Handle 'Yes' action
+      deleteUserData();
+    } else {
+      console.log("User clicked No");
+      // Handle 'No' action
+    }
+  };
+
   const fetchData = async () => {
     if (!user) {
       return;
@@ -229,7 +248,7 @@ const App = () => {
     <div>
       {user ? (
         <>
-          <nav className="flex justify-between mb-6">
+          <nav className="flex justify-between mb-6" onClick={handleConfirm}>
             <h1 className="text-slate-600 text-3xl mt-1">DMM</h1>
             <img
               src={user.profilePic}
