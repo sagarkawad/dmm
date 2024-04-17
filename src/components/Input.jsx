@@ -49,7 +49,7 @@ const Input = forwardRef(function Input(
       </label>
       <input
         type="date"
-        className="joinDate mb-6 p-3 bg-indigo-100"
+        className="joinDate mb-6 p-3 bg-indigo-100 w-full"
         ref={joinDate}
       />
       <label htmlFor="endDate" className="text-xl font-bold text-slate-600">
@@ -57,7 +57,7 @@ const Input = forwardRef(function Input(
       </label>
       <input
         type="date"
-        className="endDate mb-6 p-3 bg-indigo-100"
+        className="endDate mb-6 p-3 bg-indigo-100 w-full"
         ref={endDate}
       />
       <div>

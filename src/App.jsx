@@ -217,7 +217,7 @@ const App = () => {
       {stateUser ? (
         <>
           <nav className="flex justify-between mb-6">
-            <h1 className="text-slate-600">DMM</h1>
+            <h1 className="text-slate-600 text-3xl">DMM</h1>
             <img
               src={stateUser.photoURL}
               alt={stateUser.displayName}
