@@ -247,16 +247,16 @@ const App = () => {
           <h2 className="text-2xl font-bold text-slate-500 mb-2">
             Sign in to Continue!
           </h2>
-          <img src={signin} alt="" className="mt-10 mb-4" />
+          <img src={signin} alt="" className="mt-10 h-80 mb-10" />
           <button
             onClick={handleSignInWithGoogle}
-            className="text-white h-16 font-bold text-xl mt-10"
+            className="text-white h-16 font-bold text-l mb-6"
           >
             Sign Up
           </button>
           <button
             onClick={handleSignInWithGoogle}
-            className="text-white h-16 font-bold text-xl mt-10"
+            className="text-white h-16 font-bold text-l mb-10"
           >
             Sign In with <GoogleIcon className="mb-1" />
           </button>
