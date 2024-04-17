@@ -11,7 +11,7 @@ const App = () => {
   const [data, setData] = useState([]);
   const [exist, setExist] = useState(false);
   const [input, setInput] = useState("");
-  const [stateUser, setUser] = useState(null);
+  const [user, setUser] = useState(null);
 
   let name = useRef();
 
@@ -20,14 +20,19 @@ const App = () => {
     name.current.value = "";
   }
 
-  const fetchData = async () => {
-    if (!stateUser) {
-      return;
-    }
+  useEffect(() => {
+    setUser({
+      name: localStorage.getItem("name"),
+      email: localStorage.getItem("email"),
+      profilePic: localStorage.getItem("profilePic"),
+      uid: localStorage.getItem("uid"),
+    });
+  }, []);
 
+  const fetchData = async () => {
     try {
       const response = await fetch(
-        `https://digital-mess-manager-default-rtdb.firebaseio.com/${stateUser.uid}.json`
+        `https://digital-mess-manager-default-rtdb.firebaseio.com/${user.uid}.json`
       );
       const dbData = await response.json();
       console.log(dbData);
@@ -58,26 +63,23 @@ const App = () => {
   };
 
   useEffect(() => {
-    // Function to fetch data from Firebase Realtime Database
-
-    // Call the fetchData function when the component mounts
+    // Fetch data from Firebase Realtime Database
     fetchData();
 
     // Cleanup function to remove any unnecessary subscriptions or resources
-  }, [stateUser]); // Empty dependency array ensures useEffect runs only once on component mount
+  }, [user]); // Empty dependency array ensures useEffect runs only once on component mount
 
   async function handleSignInWithGoogle() {
-    const result = await signInWithGoogle();
-    console.log(result);
-    setUser(result.user);
+    await signInWithGoogle();
+    // console.log(result);
   }
 
   console.log(data);
-  console.log("stateUser", stateUser);
+  console.log("stateUser", user);
 
   const setDataHandler = async function (sName, joinD, endD, daysC, daysR) {
     const res = await fetch(
-      `https://digital-mess-manager-default-rtdb.firebaseio.com/${stateUser.uid}.json`,
+      `https://digital-mess-manager-default-rtdb.firebaseio.com/${user.uid}.json`,
       {
         method: "POST",
         headers: {
@@ -136,7 +138,7 @@ const App = () => {
     try {
       // Fetch all data from the database
       const response = await fetch(
-        `https://digital-mess-manager-default-rtdb.firebaseio.com/${stateUser.uid}.json`
+        `https://digital-mess-manager-default-rtdb.firebaseio.com/${user.uid}.json`
       );
       const allData = await response.json();
 
@@ -151,7 +153,7 @@ const App = () => {
       // If ID is found, perform the delete operation
       if (idToDelete) {
         const deleteResponse = await fetch(
-          `https://digital-mess-manager-default-rtdb.firebaseio.com/${stateUser.uid}/${idToDelete}.json`,
+          `https://digital-mess-manager-default-rtdb.firebaseio.com/${user.uid}/${idToDelete}.json`,
           {
             method: "DELETE",
           }
@@ -172,7 +174,7 @@ const App = () => {
     try {
       // Fetch all data from the database
       const response = await fetch(
-        `https://digital-mess-manager-default-rtdb.firebaseio.com/${stateUser.uid}.json`
+        `https://digital-mess-manager-default-rtdb.firebaseio.com/${user.uid}.json`
       );
       const allData = await response.json();
 
@@ -187,7 +189,7 @@ const App = () => {
       // If ID is found, perform the update operation
       if (idToUpdate) {
         const updateResponse = await fetch(
-          `https://digital-mess-manager-default-rtdb.firebaseio.com/${stateUser.uid}/${idToUpdate}.json`,
+          `https://digital-mess-manager-default-rtdb.firebaseio.com/${user.uid}/${idToUpdate}.json`,
           {
             method: "PATCH", // or PUT
             headers: {
@@ -214,13 +216,13 @@ const App = () => {
 
   return (
     <div>
-      {stateUser ? (
+      {user ? (
         <>
           <nav className="flex justify-between mb-6">
             <h1 className="text-slate-600 text-3xl mt-1">DMM</h1>
             <img
-              src={stateUser.photoURL}
-              alt={stateUser.displayName}
+              src={user.profilePic}
+              alt={user.displayName}
               className="rounded-full h-12"
             />
           </nav>
