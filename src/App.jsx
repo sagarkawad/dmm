@@ -238,16 +238,12 @@ const App = () => {
         </div>
       ) : (
         <div className="flex flex-col">
-          <h1 className="font-bold text-slate-600 mb-4">
-            Welcome to
-            <br />
-            DMM
-          </h1>
+          <h1 className="font-bold text-slate-600 mb-4">Welcome</h1>
 
           <h2 className="text-2xl font-bold text-slate-500 mb-2">
             Sign in to Continue!
           </h2>
-          <img src={signin} alt="" className="mt-10 h-80 mb-10" />
+          <img src={signin} alt="" className="mt-10 h-80  mb-10" />
           <button
             onClick={handleSignInWithGoogle}
             className="text-white h-16 font-bold text-l mb-6"
