@@ -12,23 +12,22 @@ const App = () => {
 
   let name = useRef();
 
-  async function handleSignInWithGoogle() {
-    const result = await signInWithGoogle();
-    console.log(result);
-    setUser(result);
-  }
-
   //clear input
   function clearInput() {
     name.current.value = "";
   }
 
   const fetchData = async () => {
+    if (!stateUser) {
+      return;
+    }
+
     try {
       const response = await fetch(
         `https://digital-mess-manager-default-rtdb.firebaseio.com/${stateUser.user.uid}.json`
       );
       const dbData = await response.json();
+      console.log(dbData);
 
       if (!dbData) {
         setData([]);
@@ -62,7 +61,13 @@ const App = () => {
     fetchData();
 
     // Cleanup function to remove any unnecessary subscriptions or resources
-  }, []); // Empty dependency array ensures useEffect runs only once on component mount
+  }, [stateUser]); // Empty dependency array ensures useEffect runs only once on component mount
+
+  async function handleSignInWithGoogle() {
+    const result = await signInWithGoogle();
+    console.log(result);
+    setUser(result);
+  }
 
   console.log(data);
 
