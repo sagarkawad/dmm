@@ -20,13 +20,20 @@ const App = () => {
     name.current.value = "";
   }
 
-  useEffect(() => {
+  function setUserData() {
+    if (!localStorage.getItem("name")) {
+      return;
+    }
     setUser({
       name: localStorage.getItem("name"),
       email: localStorage.getItem("email"),
       profilePic: localStorage.getItem("profilePic"),
       uid: localStorage.getItem("uid"),
     });
+  }
+
+  useEffect(() => {
+    setUserData();
   }, []);
 
   const fetchData = async () => {
@@ -72,6 +79,7 @@ const App = () => {
   async function handleSignInWithGoogle() {
     await signInWithGoogle();
     // console.log(result);
+    setUserData();
   }
 
   console.log(data);
