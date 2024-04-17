@@ -37,6 +37,9 @@ const App = () => {
   }, []);
 
   const fetchData = async () => {
+    if (!user) {
+      return;
+    }
     try {
       const response = await fetch(
         `https://digital-mess-manager-default-rtdb.firebaseio.com/${user.uid}.json`
