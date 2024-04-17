@@ -32,14 +32,14 @@ const Input = forwardRef(function Input(
       </label>
       <input
         type="text"
-        className="name p-3 bg-indigo-100 mb-6"
+        className="name p-3 bg-indigo-100 mb-6 rounded-lg"
         onChange={onChangeHandler}
         ref={ref}
       />
       {exist ? (
         <input
           type="text"
-          className="name mb-3 p-3 bg-indigo-100"
+          className="name mb-3 p-3 bg-indigo-100 rounded-lg"
           placeholder="Enter new name"
           ref={newName}
         />
@@ -49,7 +49,7 @@ const Input = forwardRef(function Input(
       </label>
       <input
         type="date"
-        className="joinDate mb-6 p-3 bg-indigo-100 w-full"
+        className="joinDate mb-6 p-3 bg-indigo-100 w-full rounded-lg"
         ref={joinDate}
       />
       <label htmlFor="endDate" className="text-xl font-bold text-slate-600">
@@ -57,7 +57,7 @@ const Input = forwardRef(function Input(
       </label>
       <input
         type="date"
-        className="endDate mb-6 p-3 bg-indigo-100 w-full"
+        className="endDate mb-6 p-3 bg-indigo-100 w-full rounded-lg"
         ref={endDate}
       />
       <div>

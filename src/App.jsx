@@ -217,11 +217,11 @@ const App = () => {
       {stateUser ? (
         <>
           <nav className="flex justify-between mb-6">
-            <h1 className="text-slate-600 text-3xl">DMM</h1>
+            <h1 className="text-slate-600 text-3xl mt-1">DMM</h1>
             <img
               src={stateUser.photoURL}
               alt={stateUser.displayName}
-              className="rounded-full h-16"
+              className="rounded-full h-12"
             />
           </nav>
           <div>

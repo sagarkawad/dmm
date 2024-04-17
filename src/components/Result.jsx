@@ -8,19 +8,27 @@ const Result = function ({ data, name }) {
   const formattedDate = `${year}-${month}-${day}`;
   const dateString = formattedDate; // Your date string
   return (
-    <section className="mt-4">
+    <section className="mt-10">
       {data.map((el) => {
         if (el.name == name) {
           return (
-            <div key={name}>
-              <p>name: {el.name}</p>
-              <p>joining date: {el.joinDate}</p>
-              <p>end date: {el.endDate}</p>
-              <p>today's date: {formattedDate}</p>
-              <p>days completed: {el.daysCompleted}</p>
-              <p>days remaining: {el.daysRemaining}</p>
-              {/* <MyCalendar /> */}
-            </div>
+            <>
+              <h2 className="text-xl font-bold text-slate-600">
+                Customer Details
+              </h2>
+              <div
+                key={name}
+                className="flex flex-col items-center text-2xl bg-purple-500 p-8 rounded-xl text-white"
+              >
+                <p>Name - {el.name}</p>
+                <p>Joining - {el.joinDate}</p>
+                <p>Ending - {el.endDate}</p>
+                <p>Today - {formattedDate}</p>
+                <p>Days Completed - {el.daysCompleted}</p>
+                <p>Days Remaining - {el.daysRemaining}</p>
+                {/* <MyCalendar /> */}
+              </div>
+            </>
           );
         }
       })}
