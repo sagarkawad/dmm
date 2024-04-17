@@ -4,6 +4,9 @@ import Result from "./components/Result";
 
 import { signInWithGoogle } from "./firebase.js";
 
+import GoogleIcon from "@mui/icons-material/Google";
+import signin from "./assets/signin.svg";
+
 const App = () => {
   const [data, setData] = useState([]);
   const [exist, setExist] = useState(false);
@@ -210,7 +213,6 @@ const App = () => {
 
   return (
     <div>
-      <h1>Welcome to Your App</h1>
       {stateUser ? (
         <div>
           <p>Signed in as: {stateUser.user.email}</p>
@@ -235,9 +237,29 @@ const App = () => {
           }
         </div>
       ) : (
-        <div>
-          <p>You are not signed in</p>
-          <button onClick={handleSignInWithGoogle}>Sign In with Google</button>
+        <div className="flex flex-col">
+          <h1 className="font-bold text-slate-600 mb-4">
+            Welcome to
+            <br />
+            DMM
+          </h1>
+
+          <h2 className="text-2xl font-bold text-slate-500 mb-2">
+            Sign in to Continue!
+          </h2>
+          <img src={signin} alt="" className="mt-10 mb-4" />
+          <button
+            onClick={handleSignInWithGoogle}
+            className="text-white h-16 font-bold text-xl mt-10"
+          >
+            Sign Up
+          </button>
+          <button
+            onClick={handleSignInWithGoogle}
+            className="text-white h-16 font-bold text-xl mt-10"
+          >
+            Sign In with <GoogleIcon className="mb-1" />
+          </button>
         </div>
       )}
     </div>
