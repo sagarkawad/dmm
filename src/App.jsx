@@ -2,12 +2,21 @@ import { useState, useRef, useEffect } from "react";
 import Input from "./components/Input";
 import Result from "./components/Result";
 
+import { signInWithGoogle } from "./firebase.js";
+
 const App = () => {
   const [data, setData] = useState([]);
   const [exist, setExist] = useState(false);
   const [input, setInput] = useState("");
+  const [stateUser, setUser] = useState(null);
 
   let name = useRef();
+
+  async function handleSignInWithGoogle() {
+    const result = await signInWithGoogle();
+    console.log(result);
+    setUser(result);
+  }
 
   //clear input
   function clearInput() {
@@ -15,9 +24,12 @@ const App = () => {
   }
 
   const fetchData = async () => {
+    if (!stateUser) {
+      return;
+    }
     try {
       const response = await fetch(
-        "https://digital-mess-manager-default-rtdb.firebaseio.com/userDataRecords.json"
+        `https://digital-mess-manager-default-rtdb.firebaseio.com/${stateUser.user.uid}.json`
       );
       const dbData = await response.json();
 
@@ -59,7 +71,7 @@ const App = () => {
 
   const setDataHandler = async function (sName, joinD, endD, daysC, daysR) {
     const res = await fetch(
-      "https://digital-mess-manager-default-rtdb.firebaseio.com/userDataRecords.json",
+      `https://digital-mess-manager-default-rtdb.firebaseio.com/${stateUser.user.uid}.json`,
       {
         method: "POST",
         headers: {
@@ -118,7 +130,7 @@ const App = () => {
     try {
       // Fetch all data from the database
       const response = await fetch(
-        "https://digital-mess-manager-default-rtdb.firebaseio.com/userDataRecords.json"
+        `https://digital-mess-manager-default-rtdb.firebaseio.com/${stateUser.user.uid}.json`
       );
       const allData = await response.json();
 
@@ -133,7 +145,7 @@ const App = () => {
       // If ID is found, perform the delete operation
       if (idToDelete) {
         const deleteResponse = await fetch(
-          `https://digital-mess-manager-default-rtdb.firebaseio.com/userDataRecords/${idToDelete}.json`,
+          `https://digital-mess-manager-default-rtdb.firebaseio.com/${stateUser.user.uid}/${idToDelete}.json`,
           {
             method: "DELETE",
           }
@@ -154,7 +166,7 @@ const App = () => {
     try {
       // Fetch all data from the database
       const response = await fetch(
-        "https://digital-mess-manager-default-rtdb.firebaseio.com/userDataRecords.json"
+        `https://digital-mess-manager-default-rtdb.firebaseio.com/${stateUser.user.uid}.json`
       );
       const allData = await response.json();
 
@@ -169,7 +181,7 @@ const App = () => {
       // If ID is found, perform the update operation
       if (idToUpdate) {
         const updateResponse = await fetch(
-          `https://digital-mess-manager-default-rtdb.firebaseio.com/userDataRecords/${idToUpdate}.json`,
+          `https://digital-mess-manager-default-rtdb.firebaseio.com/${stateUser.user.uid}/${idToUpdate}.json`,
           {
             method: "PATCH", // or PUT
             headers: {
@@ -195,17 +207,38 @@ const App = () => {
   console.log(exist);
 
   return (
-    <>
-      <Input
-        exist={exist}
-        setDataHandler={setDataHandler}
-        onChangeHandler={onChangeHandler}
-        onDeleteHandler={onDeleteHandler}
-        updateDataByName={onUpdateHandler}
-        ref={name}
-      />
-      <Result data={data} name={input} onDeleteHandler={onDeleteHandler} />
-    </>
+    <div>
+      <h1>Welcome to Your App</h1>
+      {stateUser ? (
+        <div>
+          <p>Signed in as: {stateUser.user.email}</p>
+          <button>Sign Out</button>
+          {
+            /* Render user-specific content here */
+            <>
+              <Input
+                exist={exist}
+                setDataHandler={setDataHandler}
+                onChangeHandler={onChangeHandler}
+                onDeleteHandler={onDeleteHandler}
+                updateDataByName={onUpdateHandler}
+                ref={name}
+              />
+              <Result
+                data={data}
+                name={input}
+                onDeleteHandler={onDeleteHandler}
+              />
+            </>
+          }
+        </div>
+      ) : (
+        <div>
+          <p>You are not signed in</p>
+          <button onClick={handleSignInWithGoogle}>Sign In with Google</button>
+        </div>
+      )}
+    </div>
   );
 };
 
