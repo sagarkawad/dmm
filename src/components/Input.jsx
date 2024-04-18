@@ -36,6 +36,10 @@ const Input = forwardRef(function Input(
         onChange={onChangeHandler}
         ref={ref}
       />
+      <label htmlFor="name" className="text-xl font-bold text-slate-600">
+        Email
+      </label>
+      <input type="email" className="name p-3 bg-indigo-100 mb-6 rounded-lg" />
       {exist ? (
         <input
           type="text"

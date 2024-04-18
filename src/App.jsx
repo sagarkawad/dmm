@@ -21,6 +21,7 @@ const App = () => {
   }
 
   function setUserData() {
+    console.log("ls", localStorage.getItem("name"));
     if (!localStorage.getItem("name")) {
       return;
     }
@@ -37,7 +38,7 @@ const App = () => {
   }, []);
 
   function deleteUserData() {
-    sessionStorage.clear();
+    localStorage.clear();
     setUser(null);
   }
 
@@ -281,13 +282,13 @@ const App = () => {
           </h2>
           <img src={signin} alt="" className="mt-10 h-80  mb-10" />
           <button className="text-white h-16 font-bold text-l mb-6">
-            Sign Up
+            Sign In with <GoogleIcon className="mb-1" /> as Customer
           </button>
           <button
             onClick={handleSignInWithGoogle}
             className="text-white h-16 font-bold text-l mb-10"
           >
-            Sign In with <GoogleIcon className="mb-1" />
+            Sign In with <GoogleIcon className="mb-1" /> as Admin
           </button>
         </div>
       )}
