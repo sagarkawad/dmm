@@ -7,7 +7,7 @@ import { PickersDay } from "@mui/x-date-pickers/PickersDay";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { DayCalendarSkeleton } from "@mui/x-date-pickers/DayCalendarSkeleton";
 
-const initialValue = dayjs("2022-04-17");
+let initialValue;
 
 function ServerDay(props) {
   const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
@@ -20,7 +20,7 @@ function ServerDay(props) {
     <Badge
       key={props.day.toString()}
       overlap="circular"
-      badgeContent={isSelected ? "🍽️" : undefined}
+      badgeContent={isSelected ? "🍵" : undefined}
     >
       <PickersDay
         {...other}
@@ -31,16 +31,23 @@ function ServerDay(props) {
   );
 }
 
-export default function DateCalendarServerRequest() {
-  const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15]);
+export default function DateCalendarServerRequest({ formattedDate }) {
+  const [highlightedDays, setHighlightedDays] = React.useState([]);
+
+  initialValue = dayjs(formattedDate);
 
   const handleMonthChange = (date) => {
     // setIsLoading(true);
-    setHighlightedDays([]);
+    // setHighlightedDays([]);
   };
 
   function onClickHandler(e) {
     console.log(e.target.textContent);
+    setHighlightedDays((prevState) => [
+      ...prevState,
+      Number(e.target.textContent),
+    ]);
+    console.log(highlightedDays);
   }
 
   return (

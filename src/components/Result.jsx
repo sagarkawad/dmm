@@ -1,4 +1,4 @@
-import MyCalendar from "./MyCalendar";
+import DateCalendarServerRequest from "./MyCalendar";
 
 const Result = function ({ data, name }) {
   const today = new Date();
@@ -18,9 +18,9 @@ const Result = function ({ data, name }) {
               </h2>
               <div
                 key={name}
-                className="flex flex-col items-center text-2xl bg-purple-500 p-8  rounded-xl text-white"
+                className="flex flex-col items-center text-2xl bg-purple-500 p-8  rounded-xl text-white w-fit"
               >
-                <MyCalendar />
+                <DateCalendarServerRequest td={formattedDate} />
                 <p>Name - {el.name}</p>
                 <p>Joining - {el.joinDate}</p>
                 <p>Ending - {el.endDate}</p>
