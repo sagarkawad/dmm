@@ -12,23 +12,23 @@ const Result = function ({ data, name }) {
       {data.map((el) => {
         if (el.name == name) {
           return (
-            <>
+            <div key={name}>
               <h2 className="text-xl font-bold text-slate-600">
                 Customer Details
               </h2>
               <div
                 key={name}
-                className="flex flex-col items-center text-2xl bg-purple-500 p-8 rounded-xl text-white"
+                className="flex flex-col items-center text-2xl bg-purple-500 p-8  rounded-xl text-white"
               >
+                <MyCalendar />
                 <p>Name - {el.name}</p>
                 <p>Joining - {el.joinDate}</p>
                 <p>Ending - {el.endDate}</p>
                 <p>Today - {formattedDate}</p>
                 <p>Days Completed - {el.daysCompleted}</p>
                 <p>Days Remaining - {el.daysRemaining}</p>
-                {/* <MyCalendar /> */}
               </div>
-            </>
+            </div>
           );
         }
       })}
