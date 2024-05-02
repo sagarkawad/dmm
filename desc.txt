@@ -1,0 +1,48 @@
+present
+---- admin ----
+1. sign in module / user authentication - sagar
+
+2. student entry - vinit
+a. the student details get saved into database (firebase) and hence CRUD (Create, Read, Update, Delete) 
+operations can be performed with ease by the admin as per the requirements.
+
+b. This makes it easy to maintain all the student records. 
+
+3. student attendance / punching card - arjita
+-- 
+a. mui, it basically is used to add beautiful ui components to your web application.
+it is generally used with react js to prevent coding from scratch and get the components
+directly into your web application. 
+
+b. So we have used the DateCalendar component from mui in our
+app and added the onClick listener to enable the punching functionality.
+
+
+4. menu display - sakshi
+
+a. the menu display module allows the admin / mess owner to post a picture of
+the food so that the customers get to know about the food in advance.
+
+b. We have used the module bytescale package for the same which is available in
+node package manager.
+
+
+
+
+
+
+
+
+
+future enhancement
+1. admin module
+    a. student entry
+    b. punching card / student attendance
+    c. menu display
+
+2. user module
+    a. mess info
+    b. punching card
+    c. menu display
+
+

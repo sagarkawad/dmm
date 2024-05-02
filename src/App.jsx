@@ -272,6 +272,10 @@ const App = () => {
               onDeleteHandler={onDeleteHandler}
             />
           </div>
+          <input
+            type="file"
+            className="h-24 text-white bg-red-400 rounded"
+          />
         </>
       ) : (
         <div className="flex flex-col">
